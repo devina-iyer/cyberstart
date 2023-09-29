@@ -52,3 +52,17 @@ for c in itertools.product(numbers, repeat = 4):
     print(pin)
     os.system("./program-x86 " + pin)
 ```
+
+
+#### Level 10
+
+C03 - download the two files, then run this command:
+$ diff locks locks_old | grep '^<' | cut -c 3-
+
+C05
+enter the server, then:
+$man -K matryoshka
+
+apparently could have used apropos
+
+C11 - extracted first image using binwalk -e, pw for zipfile was Vidanya_Das
