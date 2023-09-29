@@ -66,3 +66,47 @@ $man -K matryoshka
 apparently could have used apropos
 
 C11 - extracted first image using binwalk -e, pw for zipfile was Vidanya_Das
+
+#### Level 11
+
+C02 - had to find an open port between 14000 and 15000:
+
+```python
+import socket
+import threading
+import time
+
+# function to scan ports and see which ports are open
+def scan_port(port):
+	# we will check port of server
+	server = "services.cyberprotection.agency"
+	server_ip = socket.gethostbyname(server)
+	
+	# print("server_ip = {}".format(server_ip))
+	status = False
+
+	# create instance of socket
+	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+	# connecting the host ip address and port
+	try:
+		s.connect((server_ip, port))
+		status = True
+	except:
+		status = False
+
+	if status:
+		print("port {} is open".format(port))
+
+
+start_time = time.time()
+
+for i in range(14000, 15000):
+	thread = threading.Thread(target=scan_port, args=[i])
+	thread.start()
+
+end_time = time.time()
+print("To all scan all ports it took {} seconds".format(end_time-start_time))
+
+
+```
