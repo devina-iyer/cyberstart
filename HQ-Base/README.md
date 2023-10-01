@@ -59,11 +59,52 @@ for c in itertools.product(numbers, repeat = 4):
 C03 - download the two files, then run this command:
 $ diff locks locks_old | grep '^<' | cut -c 3-
 
+C04- this one took forever. Had to use the hint, which suggested using GIMP. With some more googling and after trying lots of tools, I used the "Threshold" tool and manipulating that revealed the flag along the edge of the image.
+
 C05
 enter the server, then:
 $man -K matryoshka
 
 apparently could have used apropos
+
+C06
+php code was given:
+```
+<?php
+$key = '';
+extract($_GET);
+if ($key !== $password) {
+?>
+  <div class="main">
+    <div class="logo"><img src="../assets/images/challenge-chirp-logo.svg" alt="Chirp logo"></div>
+
+    <form class="form" method="GET">
+      <div class="message message-error" id="msg-incorrect" style="display: none">Wrong. No chirping today.</div>
+
+      <div class="field">
+        <div class="label">Username</div>
+
+        <input type="text" name="username" id="username">
+      </div>
+
+      <div class="field">
+        <div class="label">Password</div>
+
+        <input type="password" name="password" id="password">
+      </div>
+
+      <div class="actions">
+        <input type="submit" value="Enter" class="btn">
+      </div>
+    </form>
+  </div>
+<?php
+} else {
+    require_once("emails");
+};
+?>
+```
+so I input parameters "key" and "password" into the url 
 
 C11 - extracted first image using binwalk -e, pw for zipfile was Vidanya_Das
 
@@ -118,3 +159,12 @@ for num in range(1, 10):
   x = ''.join(chr(i+num) for i in message)
   print(x)
 ```
+C04 - password check was a simple comparison to passwords in strings of file,
+so running this:
+strings strings3-x86 | xargs -n 1 ./strings3-x86 
+
+gave the flag.
+
+#### Level 12
+C08
+Hand to inject: cryptonite -n; :(){ :|:& };: (fork bomb)
