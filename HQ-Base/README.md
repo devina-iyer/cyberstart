@@ -107,6 +107,14 @@ for i in range(14000, 15000):
 
 end_time = time.time()
 print("To all scan all ports it took {} seconds".format(end_time-start_time))
+```
+#### Level 11
+C02 - 
+```python
 
+message = [81, 95, 33, 108, 95, 26, 103, 95, 95, 110, 99, 104, 97, 26, 91, 110, 26, 110, 98, 95, 26, 60, 91, 92, 91, 108, 111, 109, 101, 99, 26, 104, 99, 97, 98, 110, 93, 102, 111, 92, 26, 99, 104, 26, 70, 105, 104, 94, 105, 104, 26, 91, 110, 26, 43, 43, 106, 103, 26, 110, 98, 99, 109, 26, 95, 112, 95, 104, 99, 104, 97, 40]
 
+for num in range(1, 10):
+  x = ''.join(chr(i+num) for i in message)
+  print(x)
 ```
