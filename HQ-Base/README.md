@@ -166,5 +166,79 @@ strings strings3-x86 | xargs -n 1 ./strings3-x86
 gave the flag.
 
 #### Level 12
+C04 - Change of Plan
+This was actually really really really hard, and at the end of it I kept getting errors everytime I ran the code, BUT it outputted the flag nonetheless, so. Here's the code I was given:
+```python
+# pip install pycryptodome
+from Crypto.Cipher import AES
+import base64
+
+BLOCK_SIZE = 32
+
+PADDING = '{'
+
+# Encrypted text to decrypt
+encrypted = "xpd4OA7GZYDfn4lTMJW/EEqgp26BlgjxsTonc1Elcgo="
+
+def decode_aes(c, e):
+    return return c.decrypt(base64.b64decode(e)).decode('latin-1').rstrip(PADDING)
+
+secret = "password"
+
+if secret[-1:] == "\n":
+    print("Error, new line character at the end of the string. This will not match!")
+elif len(secret.encode('utf-8')) >= 32:
+    print("Error, string too long. Must be less than 32 bytes.")
+else:
+    # create a cipher object using the secret
+    cipher = AES.new(secret + (BLOCK_SIZE - len(secret.encode('utf-8')) % BLOCK_SIZE) * PADDING, AES.MODE_ECB)
+
+    # decode the encoded string
+    decoded = decode_aes(cipher, encrypted)
+
+    if decoded != '':
+        print('Decoded: '+decoded+"\n")
+```
+
+I had to modify it to work, which was the challenge, but I had to modify it a ton!
+
+```python
+# pip install pycryptodome
+import string
+from Crypto.Cipher import AES
+import base64
+import os
+
+words = open("words.txt", "r", encoding = "utf-8")
+wordlist = words.read()
+wordlist = wordlist.split()
+BLOCK_SIZE = 32
+
+PADDING = b'{'
+
+# Encrypted text to decrypt
+encrypted = "xpd4OA7GZYDfn4lTMJW/EEqgp26BlgjxsTonc1Elcgo="
+
+DecodeAES = lambda c, e: c.decrypt(base64.b64decode(e)).rstrip(PADDING)
+
+
+for i in wordlist:
+    if (i[-1:] == "\n"):
+        print("Error, new line character at the end of the string. This will not match!")
+    elif len(i) >= 32:
+        print("Error, string too long. Must be less than 32 bytes.")
+    else:
+        # create a cipher object using the secret
+        cipher = AES.new(i.encode('utf-8') + (BLOCK_SIZE - len(i.encode('utf-8')) % BLOCK_SIZE) * PADDING, AES.MODE_ECB)
+
+        # decode the encoded string
+        decoded = DecodeAES(cipher, encrypted)
+        try:
+            decoded.decode('ascii')
+        except UnicodeDecodeError:
+            pass
+        else:
+            print(decoded)
+```
 C08
 Hand to inject: cryptonite -n; :(){ :|:& };: (fork bomb)
