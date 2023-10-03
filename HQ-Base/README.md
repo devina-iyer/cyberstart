@@ -284,3 +284,6 @@ for i in wordlist:
 ```
 C08
 Hand to inject: cryptonite -n; :(){ :|:& };: (fork bomb)
+
+C11
+This one again took longer than it should have. I needed to insert this payload into the search box: <script>alert('Search this!!!')</script> but there were filters in place. I finally figured out to encode it with Hex(ascii) and then insert it, which gave me the flag.
