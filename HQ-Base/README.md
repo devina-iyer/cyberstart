@@ -106,6 +106,48 @@ if ($key !== $password) {
 ```
 so I input parameters "key" and "password" into the url 
 
+C10 - spent way too much time on this. LOTS of things kept breaking. sigh. final solution:
+
+```python
+# pip install pycryptodome
+from Crypto.Cipher import AES
+import base64
+import os
+import string
+words = open("words.txt", "r", encoding = "utf-8")
+wordlist = words.read()
+wordlist = wordlist.split()
+BLOCK_SIZE = 32
+
+PADDING = b'{'
+
+# Encrypted text to decrypt
+encrypted = "uqX82PBZ8pi1fvt4GLHYgLs50ht8OQlrR1KHL2teppQ="
+
+DecodeAES = lambda c, e: c.decrypt(base64.b64decode(e)).rstrip(PADDING)
+
+
+for secret in wordlist:
+    if secret[-1:] == "\n":
+        print("Error, new line character at the end of the string. This will not match!")
+    elif len(secret.encode('utf-8')) >= 32:
+        print("Error, string too long. Must be less than 32 bytes.")
+    else:
+        # create a cipher object using the secret
+        cipher = AES.new(secret.encode('utf-8') + (BLOCK_SIZE - len(secret.encode('utf-8')) % BLOCK_SIZE) * PADDING, AES.MODE_ECB)
+
+        # decode the encoded string
+        decoded = DecodeAES(cipher, encrypted)
+        if (decoded.startswith(b'FLAG:')):
+            print ("Success: ")
+            print(secret)
+            print (decoded)
+            break
+        else:
+            print("Wrong")
+       
+```
+
 C11 - extracted first image using binwalk -e, pw for zipfile was Vidanya_Das
 
 #### Level 11
