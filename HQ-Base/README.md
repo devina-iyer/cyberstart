@@ -17,6 +17,11 @@ C10
 C11
 C12
 
+#### Level 7
+
+C11 - Secret Spreadsheet
+Revstr
+
 #### Level 8
 
 W0088 - Konami code- type console.log() in console for it to listen, and then press the following keys: up, up, down, down, left, right, left, right, b, a. Flag was then revealed.
