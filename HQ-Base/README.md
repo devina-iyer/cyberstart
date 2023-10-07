@@ -359,6 +359,11 @@ C11
 This one again took longer than it should have. I needed to insert this payload into the search box: <script>alert('Search this!!!')</script> but there were filters in place. I finally figured out to encode it with Hex(ascii) and then insert it, which gave me the flag.
 
 #### Level 13
+C3
+connected to the server on netcat, it gave some strange output. so I moved the output to a file, it turned out to be a gzip file. gunzip wouldn't work, so I used 7z, and even though there were some errors it ended up unzipping and the resulting file had the flag.
 
+C6
+
+Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all
 C11
 There were a bunch of strings on the page- had to convert each one, find the one that converted to hexadecimal, enter the encoded (Base 64) version of it into the comment box, and then it outputed two strings that looked very similar, so I XORed them and that revealed the flag.
