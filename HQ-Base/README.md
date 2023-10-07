@@ -357,3 +357,8 @@ Hand to inject: cryptonite -n; :(){ :|:& };: (fork bomb)
 
 C11
 This one again took longer than it should have. I needed to insert this payload into the search box: <script>alert('Search this!!!')</script> but there were filters in place. I finally figured out to encode it with Hex(ascii) and then insert it, which gave me the flag.
+
+#### Level 13
+
+C11
+There were a bunch of strings on the page- had to convert each one, find the one that converted to hexadecimal, enter the encoded (Base 64) version of it into the comment box, and then it outputed two strings that looked very similar, so I XORed them and that revealed the flag.
