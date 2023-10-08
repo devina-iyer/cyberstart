@@ -365,5 +365,13 @@ connected to the server on netcat, it gave some strange output. so I moved the o
 C6
 
 Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all
+
+C8
+found the password list on the router site through $(cat /etc/passwd)
+Running it through hashcat:
+$ hashcat -m 500 -a 0 hash.txt rockyou.txt --show
+yielded:
+$1$gaiiqAXv$UykKlBl6vUsgBc.rUiFk80:topcat
+
 C11
 There were a bunch of strings on the page- had to convert each one, find the one that converted to hexadecimal, enter the encoded (Base 64) version of it into the comment box, and then it outputed two strings that looked very similar, so I XORed them and that revealed the flag.
