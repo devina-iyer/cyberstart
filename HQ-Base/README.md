@@ -362,6 +362,10 @@ This one again took longer than it should have. I needed to insert this payload 
 C3
 connected to the server on netcat, it gave some strange output. so I moved the output to a file, it turned out to be a gzip file. gunzip wouldn't work, so I used 7z, and even though there were some errors it ended up unzipping and the resulting file had the flag.
 
+
+C4- 
+I'm pretry sure I didn't do this the way it was intended - we had to connect to a server and find a file - that was fairly obvious, the file was called "weird". It tried executing it, but it wanted the user to be called challenge011306.
+I downloaded it to my machine, and then created a user called challenge011306 and executed it there, but I think I was supposed to do some binary patching?
 C6
 
 Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all
