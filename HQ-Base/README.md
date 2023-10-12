@@ -399,7 +399,9 @@ C6
 Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all
 
 C8
-found the password list on the router site through $(cat /etc/passwd)
+found the password list on the router site through 
+$ (cat /etc/passwd)
+
 Running it through hashcat:
 $ hashcat -m 500 -a 0 hash.txt rockyou.txt --show
 yielded:
