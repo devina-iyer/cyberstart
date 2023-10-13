@@ -1,5 +1,14 @@
+### Level 2
+C01 - Zoom in on the image.
+
+C02 - Uploaded the image to hexedit, found binary instead of hex in the bottom section. Decoding it gave the flag. 
+
+C04 - Looked through the evtx in xml and found the account name. 
+
 #### Level 4
 C02 - This challenge had a pcap file, which took me forever to figure out. the clue should have been that it was website related, the hint wasn't super helpful. I ended up going to File (in Wireshark), ---> Export Objects ---> HTTP, and there it was, an html page on evilthingshere.net. The url had a base64 cipher, which gave the flag.
+
+C04 - Uploaded the image to Aperisolve and Steghide extracted the flag file.
 
 #### Level 5
 C01 - This was a picture, which I just uploaded to Aperisolve. Strings showed a password, so I ran it through again, this time giving Aperisolve the password to extract files using steghide. The file contained the flag.
@@ -19,7 +28,11 @@ C02 - The image wouldn't load, so examining the hex data in hexed.it showed an i
 C04 - I downloaded the files and opened it through Autopsy. I first stumbled on a zip file called "Mailcious" something, so I pursued that track, found a password to extract it and found the file with the flag in Base64. Turns out this was not the flag for this challenge, so I put it aside and looked again. The briefing sais that the filename of one of the programs contained the flag. Sifting through the folders I came across an .exe file that looked like it was a Caesar Cipher, so decrypting it gave the flag "PREFETCHWIN".
 
 #### Level 7
+C02 - Opened this file through Autopsy as well, and looking through I found a zip file called GITS. Downloading it showed some files that I opened through notepad, and it had a link to a github account. The URL had the flag file. 
+
 C03- Uploaded the "empty" pdf to cyberchef and checked the strings. What seemed like decimal code stood out, so I copied it and put it into cyberchef and it revealed the flag.
+
+C04 - I opened the file in notepad and did a Control+F for the word "command" because the briefing said to find the command to get the flag. After a few clicks through I found a base64 encoded string, which gave the flag. The flag had "." between each letter, and it wouldn't work, so I had to take it out. 
 
 #### Level 8
 
