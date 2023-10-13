@@ -6,6 +6,21 @@ C02 - Uploaded the image to hexedit, found binary instead of hex in the bottom s
 C04 - Looked through the evtx in xml and found the account name. 
 
 #### Level 4
+
+C01 - Social Safari - I downloaded the files in windows, had to put them together into a zip file via the command line:
+```
+C:\Users\Me\Downloads\Hacked>copy /B hacked_laptop.z* output.zip
+hacked_laptop.zip.001
+hacked_laptop.zip.002
+hacked_laptop.zip.003
+        1 file(s) copied.
+```
+Change permissions:
+```
+C:\Users\Me\Downloads\Hacked>icacls "C:\Users\Me\Downloads\Hacked\output.zip" /GRANT *S-1-1-0:F
+processed file: C:\Users\Me\Downloads\Hacked\output.zip
+Successfully processed 1 files; Failed processing 0 files
+```
 C02 - This challenge had a pcap file, which took me forever to figure out. the clue should have been that it was website related, the hint wasn't super helpful. I ended up going to File (in Wireshark), ---> Export Objects ---> HTTP, and there it was, an html page on evilthingshere.net. The url had a base64 cipher, which gave the flag.
 
 C04 - Uploaded the image to Aperisolve and Steghide extracted the flag file.
