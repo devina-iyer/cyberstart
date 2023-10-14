@@ -139,6 +139,19 @@ C03- Uploaded the "empty" pdf to cyberchef and checked the strings. What seemed 
 
 C04 - I opened the file in notepad and did a Control+F for the word "command" because the briefing said to find the command to get the flag. After a few clicks through I found a base64 encoded string, which gave the flag. The flag had "." between each letter, and it wouldn't work, so I had to take it out. 
 
+C05 - I think I was supposed to use Mimikatz to do this, but I simply ran lsadump, because the briefing said to look for a plaintext password, and lsadump revealed secrets from memory?
+
+```
+C:\Users\Me\Downloads\volatility3-2.5.0\volatility3-2.5.0>python vol.py -f memdump.mem windows.lsadump.Lsadump
+Volatility 3 Framework 2.5.0
+Progress:  100.00               PDB scanning finished
+Key     Secret  Hex
+
+DefaultPassword ▲               M 1 m 1 K a t z _ 0 w n 1 n g           1e 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 4d 00 31 00 6d 00 31 00 4b 00 61 00 74 00 7a 00 5f 00 30 00 77 00 6e 00 31 00 6e 00 67 00 00 00
+DPAPI_SYSTEM    ,               ☺   ´svBT yÉ)a▲`ñ{↑¬¶U-mHË/ä°¶mX.ã¶↓Ä♣H            2c 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 b4 73 76 42 54 a0 79 c9 29 61 1e 60 f1 7b 18 ac 9f 91 9a 97 99 b6 55 2d 6d 48 cb 2f e4 b0 14 6d 58 2e e3 14 19 c4 05 48 00 00 00 00
+
+```
+
 #### Level 8
 C01 - Had to go through a memory dump in volatility, but I have to use windows because there is not enough storage on my virtual linux system for the file.
 First ran:
