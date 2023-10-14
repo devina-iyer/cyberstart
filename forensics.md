@@ -7,6 +7,20 @@ C03 - downloaded hivexsh onto linux to analyze this registry file. Used the hash
 
 C04 - Looked through the evtx in xml and found the account name. 
 
+C05 - downloaded and unzipped the memory dump in windows. Downloaded volatility, and ran
+
+```
+python vol.py -f memdump.mem windows.info.Info
+```
+#### Level 3
+
+C05 - The challenge was to find the suspicious process in the memory dump to find the flag, so I ran the following on windows command line:
+
+```
+python vol.py -f memdump.mem windows.pslist.PsList
+```
+
+Going through the list I found a process called 19hglski!hg which was the flag!
 #### Level 4
 
 C01 - Social Safari - I downloaded the files in windows, had to put them together into a zip file via the command line:
