@@ -32,6 +32,9 @@ C03- in wireshark I entered the following filter:
 ip.src==192.168.120.101 and tcp.flags.ack==0x12
 to find the open ports.
 
+C04-
+
+C05 - 
 
 
 #### Level 6
@@ -40,7 +43,11 @@ C01 - uploaded the image to hexed.it, and at the bottom in ascii was md5: iloves
 
 C02 - The image wouldn't load, so examining the hex data in hexed.it showed an incorrect JPEG header, which I corrected, and an extra 30 bytes, which I eliminated. The image then loaded and I could read the flag.
 
+C03 - Downloaded a pcapng file, found an .eml file that looked suspicious (with an attachment). It took me forever to figure out how to extract it, but I followed the tcp stream and found the right app to open up the .eml file, which allowed me to download and extract an ELF from the gzip. The email itself had a question to which I just googled the answer (1997). Ran the ELF on linux which prompted me for the answer. On inputing it, it spit out the flag which I had to decode from Base64.
+
 C04 - I downloaded the files and opened it through Autopsy. I first stumbled on a zip file called "Mailcious" something, so I pursued that track, found a password to extract it and found the file with the flag in Base64. Turns out this was not the flag for this challenge, so I put it aside and looked again. The briefing sais that the filename of one of the programs contained the flag. Sifting through the folders I came across an .exe file that looked like it was a Caesar Cipher, so decrypting it gave the flag "PREFETCHWIN".
+
+C05 - Digging through the entire log, I saw that one part looked different and had a Base64 encoded string. Decoding it gave the flag. 
 
 #### Level 7
 C02 - Opened this file through Autopsy as well, and looking through I found a zip file called GITS. Downloading it showed some files that I opened through notepad, and it had a link to a github account. The URL had the flag file. 
