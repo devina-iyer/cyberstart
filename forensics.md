@@ -115,6 +115,24 @@ C04 - I downloaded the files and opened it through Autopsy. I first stumbled on 
 C05 - Digging through the entire log, I saw that one part looked different and had a Base64 encoded string. Decoding it gave the flag. 
 
 #### Level 7
+
+C01- the briefing was to retrieve the hash of the admin account from the memory dump, so I ran the following on windows CLI:
+
+```
+C:\Users\Me\Downloads\volatility3-2.5.0\volatility3-2.5.0>python vol.py -f memdump.mem windows.hashdump.Hashdump
+Volatility 3 Framework 2.5.0
+Progress:  100.00               PDB scanning finished
+User    rid     lmhash  nthash
+
+Administrator   500     aad3b435b51404eeaad3b435b51404ee        fc525c9683e8fe067095ba2ddc971889
+Guest   501     aad3b435b51404eeaad3b435b51404ee        31d6cfe0d16ae931b73c59d7e0c089c0
+IEUser  1001    aad3b435b51404eeaad3b435b51404ee        fc525c9683e8fe067095ba2ddc971889
+sshd    1002    aad3b435b51404eeaad3b435b51404ee        31d6cfe0d16ae931b73c59d7e0c089c0
+sshd_server     1003    aad3b435b51404eeaad3b435b51404ee        8d0a16cfc061c3359db455d00ec27035
+```
+
+The second hex string for Administrator was the flag.
+
 C02 - Opened this file through Autopsy as well, and looking through I found a zip file called GITS. Downloading it showed some files that I opened through notepad, and it had a link to a github account. The URL had the flag file. 
 
 C03- Uploaded the "empty" pdf to cyberchef and checked the strings. What seemed like decimal code stood out, so I copied it and put it into cyberchef and it revealed the flag.
