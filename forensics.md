@@ -131,7 +131,7 @@ Once I had the list, I spotted the .pst file I was looking for and copied its of
 ```
 C:\Users\Me\Downloads\volatility3-2.5.0\volatility3-2.5.0>python vol.py -f 0801.mem -o "C:\Users\Me\Downloads" windows.dumpfiles.DumpFiles --physaddr 0x32d186d0
 ```
-Uploading the pst file to an online viewer gave me all the info I needed to fill the report for the challenge.
+Uploading the pst file to an online viewer gave me all the info I needed to fill the report for the challenge. Had to check the "raw props" for a lot of info.
 
 C02 - The given file was a pst file, so I uploaded it to an online pst viewer (Goldfynch), which showed that there was a "notes" file and a file in "deleted items". The one in the deleted folder was a zip, that probably contained the flag but it was password protected. The notes contained what seemed to be the password in Base64, but putting in the decoded password didn't work, so I tried putting in the encoded password and it worked!
 
