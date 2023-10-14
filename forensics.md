@@ -3,6 +3,8 @@ C01 - Zoom in on the image.
 
 C02 - Uploaded the image to hexedit, found binary instead of hex in the bottom section. Decoding it gave the flag. 
 
+C03 - downloaded hivexsh onto linux to analyze this registry file. Used the hashxsh tool to navigate through the hive (with ls and cd) and get to Microsoft\Windows\CurrentVersion\Run to see the malicious process, and used lsval to get the flag.
+
 C04 - Looked through the evtx in xml and found the account name. 
 
 #### Level 4
