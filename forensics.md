@@ -44,6 +44,55 @@ C04 - Uploaded the image to Aperisolve and Steghide extracted the flag file.
 #### Level 5
 C01 - This was a picture, which I just uploaded to Aperisolve. Strings showed a password, so I ran it through again, this time giving Aperisolve the password to extract files using steghide. The file contained the flag.
 
+C02 - this was a hard one. The hives zipped folder contained two registry files called SAM and SYSTEM. I had to extract the hashes from both of these into one file, and then run it against the provided password list with John the Ripper.
+
+```
+┌──(devina㉿kali)-[~]
+└─$ creddump7 -h                                                                                       
+creddump7 - Python tool to extract credentials and secrets from Windows registry hives
+/usr/share/creddump7
+├── __pycache__
+├── cachedump.py
+├── framework
+├── lsadump.py
+└── pwdump.py
+┌──(devina㉿kali)-[/usr/share/creddump7]
+└─$ cd /usr/share/creddump7
+
+┌──(devina㉿kali)-[/usr/share/creddump7]
+└─$ ./pwdump.py /home/devina/Downloads/SYSTEM /home/devina/Downloads/SAM > ~/Downloads/Hashes.txt
+
+```
+Navigate back to Downloads folder and execute the following:
+
+```
+┌──(devina㉿kali)-[~/Downloads]
+└─$ john Hashes.txt -wordlist="words.txt"
+Warning: detected hash type "LM", but the string is also recognized as "NT"
+Use the "--format=NT" option to force loading these as that type instead
+Using default input encoding: UTF-8
+Using default target encoding: CP850
+Loaded 1 password hash (LM [DES 256/256 AVX2])
+Press 'q' or Ctrl-C to abort, almost any other key for status
+0g 0:00:00:00 DONE (2023-10-14 17:18) 0g/s 91000p/s 91000c/s 91000C/s PIUS'S..RESTORA
+Session completed. 
+
+```
+Redid it with the NT format:
+
+```
+┌──(devina㉿kali)-[~/Downloads]
+└─$ john Hashes.txt -wordlist="words.txt" --format=NT                                                  
+Using default input encoding: UTF-8
+Loaded 3 password hashes with no different salts (NT [MD4 256/256 AVX2 8x3])
+Press 'q' or Ctrl-C to abort, almost any other key for status
+D@rj33l1ng       (sshd_server)     
+1g 0:00:00:00 DONE (2023-10-14 17:19) 100.0g/s 91000p/s 91000c/s 220400C/s Pius's..restoration's
+Warning: passwords printed above might not be all those cracked
+Use the "--show --format=NT" options to display all of the cracked passwords reliably
+Session completed. 
+```
+
 C03- in wireshark I entered the following filter:
 ip.src==192.168.120.101 and tcp.flags.ack==0x12
 to find the open ports.
