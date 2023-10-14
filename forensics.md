@@ -122,6 +122,16 @@ C03- Uploaded the "empty" pdf to cyberchef and checked the strings. What seemed 
 C04 - I opened the file in notepad and did a Control+F for the word "command" because the briefing said to find the command to get the flag. After a few clicks through I found a base64 encoded string, which gave the flag. The flag had "." between each letter, and it wouldn't work, so I had to take it out. 
 
 #### Level 8
+C01 - Had to go through a memory dump in volatility, but I have to use windows because there is not enough storage on my virtual linux system for the file.
+First ran:
+```
+C:\Users\Me\Downloads\volatility3-2.5.0\volatility3-2.5.0>python vol.py -f 0801.mem windows.filescan.FileScan
+```
+Once I had the list, I spotted the .pst file I was looking for and copied its offset.
+```
+C:\Users\Me\Downloads\volatility3-2.5.0\volatility3-2.5.0>python vol.py -f 0801.mem -o "C:\Users\Me\Downloads" windows.dumpfiles.DumpFiles --physaddr 0x32d186d0
+```
+Uploading the pst file to an online viewer gave me all the info I needed to fill the report for the challenge.
 
 C02 - The given file was a pst file, so I uploaded it to an online pst viewer (Goldfynch), which showed that there was a "notes" file and a file in "deleted items". The one in the deleted folder was a zip, that probably contained the flag but it was password protected. The notes contained what seemed to be the password in Base64, but putting in the decoded password didn't work, so I tried putting in the encoded password and it worked!
 
