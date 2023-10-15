@@ -41,6 +41,8 @@ C02 - This challenge had a pcap file, which took me forever to figure out. the c
 
 C04 - Uploaded the image to Aperisolve and Steghide extracted the flag file.
 
+C05 - Did a Keyword search in Autopsy for the word "flag" with 'Regular Expression' selected, and I got a few files in the results. Looking through them, I found what appeared to be the correct flag: Gr3p15th3friendyf1nd3r
+
 #### Level 5
 C01 - This was a picture, which I just uploaded to Aperisolve. Strings showed a password, so I ran it through again, this time giving Aperisolve the password to extract files using steghide. The file contained the flag.
 
