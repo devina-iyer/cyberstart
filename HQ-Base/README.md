@@ -407,5 +407,90 @@ $ hashcat -m 500 -a 0 hash.txt rockyou.txt --show
 yielded:
 $1$gaiiqAXv$UykKlBl6vUsgBc.rUiFk80:topcat
 
+C09- Encrypted
+Very complicated. Ran the program through radare2:
+
+```
+──(devina㉿kali)-[~/Downloads]
+└─$ r2 ./program-x86
+[0x08048340]> s main
+[0x0804843b]> pdf
+            ; DATA XREF from entry0 @ 0x8048357(r)
+┌ 172: int main (char **argv);
+│           ; var int32_t canary @ ebp-0xc
+│           ; var int32_t var_10h @ ebp-0x10
+│           ; var int32_t var_14h @ ebp-0x14
+│           ; var int32_t var_18h @ ebp-0x18
+│           ; var int32_t var_1ch @ ebp-0x1c
+│           ; var int32_t var_20h @ ebp-0x20
+│           ; var int32_t var_24h @ ebp-0x24
+│           ; var int32_t var_28h @ ebp-0x28
+│           ; var int32_t var_2ch @ ebp-0x2c
+│           ; var int32_t var_30h @ ebp-0x30
+│           ; var int32_t var_34h @ ebp-0x34
+│           ; var int32_t var_38h @ ebp-0x38
+│           ; var int32_t var_3ch @ ebp-0x3c
+│           ; var int32_t var_40h @ ebp-0x40
+│           ; var int32_t var_44h @ ebp-0x44
+│           ; var char *var_48h @ ebp-0x48
+│           ; var int32_t var_4ch @ ebp-0x4c
+│           ; arg char **argv @ esp+0x64
+│           0x0804843b      8d4c2404       lea ecx, [argv]
+│           0x0804843f      83e4f0         and esp, 0xfffffff0
+│           0x08048442      ff71fc         push dword [ecx - 4]
+│           0x08048445      55             push ebp
+│           0x08048446      89e5           mov ebp, esp
+│           0x08048448      51             push ecx
+│           0x08048449      83ec54         sub esp, 0x54
+│           0x0804844c      89c8           mov eax, ecx
+│           0x0804844e      8b4004         mov eax, dword [eax + 4]
+│           0x08048451      8945b4         mov dword [var_4ch], eax
+│           0x08048454      65a114000000   mov eax, dword gs:[0x14]
+│           0x0804845a      8945f4         mov dword [canary], eax
+│           0x0804845d      31c0           xor eax, eax
+│           0x0804845f      c745b8708504.  mov dword [var_48h], str.swiCNJCtPVbCyyAmNG8PqFZsYpyXegEQRGt ; hit0_0                                                                                              
+│                                                                      ; 0x8048570 ; "swi&CNJCtPVbCyyAmNG8PqFZsYpyXegEQRGt"                                                                                   
+│           0x08048466      c745bc030000.  mov dword [var_44h], 3
+│           0x0804846d      c745c0090000.  mov dword [var_40h], 9
+│           0x08048474      c745c40e0000.  mov dword [var_3ch], 0xe    ; 14
+│           0x0804847b      c745c8020000.  mov dword [var_38h], 2
+│           0x08048482      c745cc090000.  mov dword [var_34h], 9
+│           0x08048489      c745d0080000.  mov dword [var_30h], 8
+│           0x08048490      c745d40b0000.  mov dword [var_2ch], 0xb    ; 11
+│           0x08048497      c745d8150000.  mov dword [var_28h], 0x15   ; 21
+│           0x0804849e      c745dc130000.  mov dword [var_24h], 0x13   ; 19
+│           0x080484a5      c745e0030000.  mov dword [var_20h], 3
+│           0x080484ac      c745e4010000.  mov dword [var_1ch], 1
+│           0x080484b3      c745e8020000.  mov dword [var_18h], 2
+│           0x080484ba      c745ec050000.  mov dword [var_14h], 5
+│           0x080484c1      c745f0050000.  mov dword [var_10h], 5
+│           0x080484c8      b800000000     mov eax, 0
+│           0x080484cd      8b55f4         mov edx, dword [canary]
+│           0x080484d0      653315140000.  xor edx, dword gs:[0x14]
+│       ┌─< 0x080484d7      7405           je 0x80484de
+│       │   0x080484d9      e832feffff     call sym.imp.__stack_chk_fail ; void __stack_chk_fail(void)
+│       │   ; CODE XREF from main @ 0x80484d7(x)
+│       └─> 0x080484de      83c454         add esp, 0x54
+│           0x080484e1      59             pop ecx
+│           0x080484e2      5d             pop ebp
+│           0x080484e3      8d61fc         lea esp, [ecx - 4]
+└           0x080484e6      c3             ret
+[0x0804843b]> 
+
+```
+The encrypted string is followed by some variables with indexes into the string, so running this python script gave the flag:
+
+```python
+a = [0x03, 0x09, 0x0E, 0x02, 0x09, 0x08, 0x0B, 0x15, 0x13, 0x03, 0x01, 0x02, 0x05, 0x05]
+
+s = "swi&CNJCtPVbCyyAmNG8PqFZsYpyXegEQRGt"
+
+for v in a:
+    print(s[v], end="")
+
+print()
+```
+
+
 C11
 There were a bunch of strings on the page- had to convert each one, find the one that converted to hexadecimal, enter the encoded (Base 64) version of it into the comment box, and then it outputed two strings that looked very similar, so I XORed them and that revealed the flag.
