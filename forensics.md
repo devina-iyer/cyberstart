@@ -101,7 +101,12 @@ to find the open ports.
 
 C04-
 
-C05 - 
+C05 - fixed the pcap on kali:
+```
+┌──(devina㉿kali)-[~/Downloads]
+└─$ pcapfix -v Taipei\ malicious\ capture.pcapng
+```
+Filtered for http on the fixed file, and found the flag in the strings.
 
 
 #### Level 6
