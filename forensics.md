@@ -37,6 +37,8 @@ C:\Users\Me\Downloads\Hacked>icacls "C:\Users\Me\Downloads\Hacked\output.zip" /G
 processed file: C:\Users\Me\Downloads\Hacked\output.zip
 Successfully processed 1 files; Failed processing 0 files
 ```
+that was the easy part. I spent SO MUCH TIME on this challenge, and it was just worth a couple of hundred points. I finally found the security.evtx file, and had to scroll through thousands but I found it!
+
 C02 - This challenge had a pcap file, which took me forever to figure out. the clue should have been that it was website related, the hint wasn't super helpful. I ended up going to File (in Wireshark), ---> Export Objects ---> HTTP, and there it was, an html page on evilthingshere.net. The url had a base64 cipher, which gave the flag.
 
 C04 - Uploaded the image to Aperisolve and Steghide extracted the flag file.
