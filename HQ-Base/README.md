@@ -398,6 +398,32 @@ C6
 
 Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all
 
+C7
+Executing this shellcode was a nightmare:
+
+```
+#include <stdio.h>
+#include <sys/mman.h>
+#include <unistd.h>
+
+int main(int argc, char **argv) {
+        const char shellcode[] = "\xeb\x3e\x58\x89\xc1\xbb\x00\x00\x00\x00\xba\x53\x00\x00\x00\x31\xc0\x8a\x04\x19\x53\x51\x50\x89\xe1\xb8\x04\x00\x00\x00\xbb\x01\x00\x00\x00\x52\xba\x01\x00\x00\x00\xcd\x80\x5a\x59\x59\x5b\x43\x43\x4a\x75\xdb\xb8\x01\x00\x00\x00\xbb\x00\x00\x00\x00\xcd\x80\xe8\xbd\xff\xff\xff\x73\x68\x65\x6c\x6c\x63\x6f\x64\x65\x5f\x69\x73\x5f\x64\x61\x74\x61\x5f\x64\x61\x74\x61\x5f\x69\x73\x5f\x73\x68\x65\x6c\x6c\x63\x6f\x64\x65";
+        int foo_value = 0;
+
+        int (*foo)() = (int(*)())shellcode;
+        foo_value = foo();
+
+        printf("%d\n", foo_value);
+}
+```
+Borrowed this code from a github site and tweaked it a little. Then ran this:
+
+```
+┌──(devina㉿kali)-[~/Downloads]
+└─$ gcc -m32 -fno-stack-protector -z execstack main.c -o shell
+```
+Running the ELf outputted the flag!
+
 C8
 found the password list on the router site through 
 $ (cat /etc/passwd)
