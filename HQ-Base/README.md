@@ -74,6 +74,12 @@ for c in itertools.product(numbers, repeat = 4):
 
 
 #### Level 10
+C02 - 
+plug into python to calculate the number:
+
+```python
+print(4096+sum([i for i in range(1,5521)]))
+```
 
 C03 - download the two files, then run this command:
 $ diff locks locks_old | grep '^<' | cut -c 3-
