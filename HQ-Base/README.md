@@ -22,6 +22,28 @@ C12
 C11 - Secret Spreadsheet
 Revstr
 
+``` python
+import urllib.request, urllib.error, urllib.parse
+
+link = "http://www.chiquitooenterprise.com/password"
+
+response = urllib.request.urlopen(link)
+response = response.read()
+#print(response)
+
+x = (response.decode('utf-8'))
+#print(x)
+
+revString = x[::-1]
+#print(revString)
+
+answer = "http://www.chiquitooenterprise.com/password?code=" + revString
+response = urllib.request.urlopen(answer)
+response = response.read()
+print(response.decode('utf-8'))
+
+```
+
 #### Level 8
 
 W0088 - Konami code- type console.log() in console for it to listen, and then press the following keys: up, up, down, down, left, right, left, right, b, a. Flag was then revealed.
@@ -516,7 +538,24 @@ for v in a:
 
 print()
 ```
+C10 - Connecting to the server gave this:
 
+```
+Pzmxizm bw jm kwvncaml!
+(^_^)?
+0n65 0n69 0n83
+3840 / (22 - 7)
+0j43 0j42 0j43
+xrl=6875726E6763736E6F646B68796A737000000000000000000000000000000000
+vi =6D617366666674766F726B6468797162
+RZZ3BM6yfMWwrXG/RmLVQ7eYdlnsIMvlWjE4hOSiXRW4aKWVjbmMNWgLnFC6oIpu
+```
+
+The first few lines were easy enough to decrypt, but the first line was confusing, since rotating the letters gives "Hrepare to be confused!" and the tip they provided was "Decrypt all the things! Are you sure the first line is fully decrypted?". This was a very confusing tip, because it kept indicating that I had done it wrong, whereas the whole time the first letter not decrypting correctly was a clue to deselect the option to rotate upper characters for the final cipher on the last line.
+
+Another trick was they rotated the letters for "key" and "iv", and I tried inputing the rotated numbers as well but had to use the numbers as given.
+
+The last line, the cipher, went through multiple decryption layers: first, from ROT13 (lower case characters only), then from Base 64, then from AES, and lastly from Hex. Cyberchef was invaluable for this.
 
 C11
 There were a bunch of strings on the page- had to convert each one, find the one that converted to hexadecimal, enter the encoded (Base 64) version of it into the comment box, and then it outputed two strings that looked very similar, so I XORed them and that revealed the flag.
