@@ -1,4 +1,16 @@
 #### Level 13
+
+##### C1
+
+Change url:
+https://jiaozi-restaurants.com/booking-form?venue=shanghai&seedID=0:0:0:0&name=a&date=a
+
+solve the captcha and submit. Do the whole thing 5 times and you get the flag.
+
+##### C2
+
+After much trial and error, just press enter until it says "Welcome", then type "flag" and it outputs the flag.
+
 ##### C3
 connected to the server on netcat, it gave some strange output. so I moved the output to a file, it turned out to be a gzip file. gunzip wouldn't work, so I used 7z, and even though there were some errors it ended up unzipping and the resulting file had the flag.
 
