@@ -1,4 +1,10 @@
 #### Level 12
+##### C01
+Going through the log, I found the person that had sent the most emails.
+
+##### C02
+Had to change char[8] to char[13] because the command "take_pictures" has 13 characters.
+
 C04 - Change of Plan
 This was actually really really really hard, and at the end of it I kept getting errors everytime I ran the code, BUT it outputted the flag nonetheless, so. Here's the code I was given:
 ```python
