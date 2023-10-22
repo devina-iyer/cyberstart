@@ -14,6 +14,8 @@ python vol.py -f memdump.mem windows.info.Info
 ```
 #### Level 3
 
+C01-C04 - These were fairly simple challenges.
+
 C05 - The challenge was to find the suspicious process in the memory dump to find the flag, so I ran the following on windows command line:
 
 ```
@@ -40,6 +42,8 @@ Successfully processed 1 files; Failed processing 0 files
 that was the easy part. I spent SO MUCH TIME on this challenge, and it was just worth a couple of hundred points. I finally found the security.evtx file, and had to scroll through thousands but I found it!
 
 C02 - This challenge had a pcap file, which took me forever to figure out. the clue should have been that it was website related, the hint wasn't super helpful. I ended up going to File (in Wireshark), ---> Export Objects ---> HTTP, and there it was, an html page on evilthingshere.net. The url had a base64 cipher, which gave the flag.
+
+C03- The files for this challenge were the same as the first one on this level, and I think I found the files needed in the "Recent Documents" folder. I believe there was a password for a zip file, fairly easy to find. I ended up solving this before the first challenge.
 
 C04 - Uploaded the image to Aperisolve and Steghide extracted the flag file.
 
@@ -101,7 +105,7 @@ C03- in wireshark I entered the following filter:
 ip.src==192.168.120.101 and tcp.flags.ack==0x12
 to find the open ports.
 
-C04-
+C04- I think this was an Autopsy challenge - had to locate the file "coms.txt" in the Recycle Bin. Can't remember if I had to do anything else to get the flag, but it wasn't that challenging I don't think.
 
 C05 - fixed the pcap on kali:
 ```
