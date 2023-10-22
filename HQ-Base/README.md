@@ -400,18 +400,29 @@ C11
 This one again took longer than it should have. I needed to insert this payload into the search box: <script>alert('Search this!!!')</script> but there were filters in place. I finally figured out to encode it with Hex(ascii) and then insert it, which gave me the flag.
 
 #### Level 13
-C3
+##### C3
 connected to the server on netcat, it gave some strange output. so I moved the output to a file, it turned out to be a gzip file. gunzip wouldn't work, so I used 7z, and even though there were some errors it ended up unzipping and the resulting file had the flag.
 
 
-C4- 
-I'm pretry sure I didn't do this the way it was intended - we had to connect to a server and find a file - that was fairly obvious, the file was called "weird". It tried executing it, but it wanted the user to be called challenge011306.
+##### C4- 
+I'm pretty sure I didn't do this the way it was intended - we had to connect to a server and find a file - that was fairly obvious, the file was called "weird". It tried executing it, but it wanted the user to be called challenge011306.
 I downloaded it to my machine, and then created a user called challenge011306 and executed it there, but I think I was supposed to do some binary patching?
-C6
 
-Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all
+##### C05
 
-C7
+The hint said to use a cyclic pattern tool for the binary exploit, so I first generated a pattern with an arbitrary length of 200:
+
+```
+$ msf-pattern_create -l 200
+```
+
+I ran the ELF within gdb and pasted the cyclic pattern, which resulted in a segmentation fault. I copied the memory address of the fault and found the offset with the msf-pattern_offset command (-q flag), and then executed the binary with a python print command to call the input at the given memory address of 0x80484b1.
+
+##### C6
+
+Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all. Had to scramble this a bit to get the flag right.
+
+##### C7
 Executing this shellcode was a nightmare:
 
 ```
@@ -437,7 +448,7 @@ Borrowed this code from a github site and tweaked it a little. Then ran this:
 ```
 Running the ELf outputted the flag!
 
-C8
+##### C8
 found the password list on the router site through 
 $ (cat /etc/passwd)
 
@@ -446,7 +457,7 @@ $ hashcat -m 500 -a 0 hash.txt rockyou.txt --show
 yielded:
 $1$gaiiqAXv$UykKlBl6vUsgBc.rUiFk80:topcat
 
-C09- Encrypted
+##### C09- Encrypted
 Very complicated. Ran the program through radare2:
 
 ```
@@ -529,7 +540,7 @@ for v in a:
 
 print()
 ```
-C10 - Connecting to the server gave this:
+##### C10 - Connecting to the server gave this:
 
 ```
 Pzmxizm bw jm kwvncaml!
@@ -548,10 +559,10 @@ Another trick was they rotated the letters for "key" and "iv", and I tried input
 
 The last line, the cipher, went through multiple decryption layers: first, from ROT13 (lower case characters only), then from Base 64, then from AES, and lastly from Hex. Cyberchef was invaluable for this.
 
-C11
+##### C11
 There were a bunch of strings on the page- had to convert each one, find the one that converted to hexadecimal, enter the encoded (Base 64) version of it into the comment box, and then it outputed two strings that looked very similar, so I XORed them and that revealed the flag.
 
-c12 - Trial by File
+##### c12 - Trial by File
 OK, this one took a long time to understand and get right. In the end, it was actually not more than a couple of steps. 
 I first had to disable the ptrace, which kept kicking me out of gdb - I opened the file in a hexeditor and changed 75 to 74 on line 720:
 
