@@ -550,3 +550,14 @@ The last line, the cipher, went through multiple decryption layers: first, from 
 
 C11
 There were a bunch of strings on the page- had to convert each one, find the one that converted to hexadecimal, enter the encoded (Base 64) version of it into the comment box, and then it outputed two strings that looked very similar, so I XORed them and that revealed the flag.
+
+c12 - Trial by File
+OK, this one took a long time to understand and get right. In the end, it was actually not more than a couple of steps. 
+I first had to disable the ptrace, which kept kicking me out of gdb - I opened the file in a hexeditor and changed 75 to 74 on line 720:
+
+from c4 10 83 f8 ff 75 1c 83
+to c4 10 83 f8 ff 74 1c 83
+
+I just found this method online, and it worked. 
+
+I then used gdb to disassemble the main function. I set a breakpoint at the call function before the one that prompted for the password, and jumped to the call function AFTER the password check, which revealed the flag.
