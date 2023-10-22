@@ -23,6 +23,8 @@ The hint said to use a cyclic pattern tool for the binary exploit, so I first ge
 $ msf-pattern_create -l 200
 
 I ran the ELF within gdb and pasted the cyclic pattern, which resulted in a segmentation fault. I copied the memory address of the fault and found the offset with the msf-pattern_offset command (-q flag), and then executed the binary with a python print command to call the input at the given memory address of 0x80484b1.
+4UPzOlkhlUBvY8bHikd
+
 
 ##### C6
 Strings don't give anything useful, though catting the file reveals r4ndOmd4t4isfun444all. Had to scramble this a bit to get the flag right.
