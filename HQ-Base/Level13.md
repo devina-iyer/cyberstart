@@ -164,4 +164,4 @@ from c4 10 83 f8 ff 75 1c 83 to c4 10 83 f8 ff 74 1c 83
 
 I just found this method online, and it worked.
 
-I then used gdb to disassemble the main function. I set a breakpoint at the call function before the one that prompted for the password, and jumped to the call function AFTER the password check, which revealed the flag.
+After that I went through the file in ghidra to really see where the password input function was being called, and once I had that memory address, I switched to pwndbg in gdb to disassemble the main function. I set a breakpoint at the call function before the one that prompted for the password(main+368), and jumped to the call function AFTER the password check(main+424), which revealed the flag.
