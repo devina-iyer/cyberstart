@@ -264,5 +264,12 @@ C07- I first tried converting de4dc0de to decimal, but that didn't work. Octal d
 $ ./program-x86 $(printf "00000000000000000\336\300\115\336") 
 Also had to play around with the number of zeros to cause the buffer overflow because changing the number of zeroes changed the output.
 
+C12
+Add a cookie with whatever name, and for cookie value insert:
+
+WHERE name = 'Billy' OR 1=1
+
+and then refresh the page.
+
 
 
