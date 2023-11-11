@@ -100,7 +100,13 @@ Warning: passwords printed above might not be all those cracked
 Use the "--show --format=NT" options to display all of the cracked passwords reliably
 Session completed. 
 ```
+This also did the trick:
 
+```
+┌──(devina㉿kali)-[~/Downloads]
+└─$ john --format=NT --show Hashes.txt                                                                   
+sshd_server:D@rj33l1ng:1003:aad3b435b51404eeaad3b435b51404ee:8d0a16cfc061c3359db455d00ec27035:::
+```
 C03- in wireshark I entered the following filter:
 ip.src==192.168.120.101 and tcp.flags.ack==0x12
 to find the open ports.
