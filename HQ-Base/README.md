@@ -58,7 +58,7 @@ $cd ..
 ```
 twice, then run the following command to find the file:
 
-``
+```
 $ find ./ -type f -ls | grep "Nov 22"
 $ cat ./etc/protocol
 ```
