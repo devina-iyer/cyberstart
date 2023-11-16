@@ -52,9 +52,16 @@ Once I found the image, I had to exit the ssh connection to the server and estab
 $ scp -P26041 9XtXpQhrht@54.229.163.112:./Contents/M5KDAN44 ~/
 
 C09 
-After connecting to the ssh server, $cd .. twice, then run the following command to find the file. 
+After connecting to the ssh server:
+```
+$cd ..
+```
+twice, then run the following command to find the file:
+
+``
 $ find ./ -type f -ls | grep "Nov 22"
 $ cat ./etc/protocol
+```
 
 C11
 Uploading the images to aperisolve showed that one had a zip file in it. Extracted it with binwalk -e, which yielded an ELF named "msg". Running it gave the flag. 
