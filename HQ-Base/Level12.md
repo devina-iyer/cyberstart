@@ -134,7 +134,7 @@ cookie = soup.find('div', {'class': 'number'}).text
 print(cookie)
 
 # Create a dictionary with the 'cookie' to send as a cookie in the POST request
-cookies = {'timelock': cookie}  # Replace 'cookie_name' with the actual cookie name
+cookies = {'timelock': cookie}  # Replace 'timelock' with the actual cookie name
 
 # Make the POST request with the 'cookie'
 
